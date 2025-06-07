@@ -25,6 +25,7 @@ function addPlayMenu() {
     button.classList.add("button");
     button.classList.add("button--large");
     button.setAttribute("id", "play-menu__start-game");
+    button.setAttribute("onclick", "startGame()");
 
     // add content to elements
     header.textContent = "Husky Box";
