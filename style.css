@@ -11,6 +11,21 @@ body {
     margin-top: 21px;
 }
 
+/* button */
+.button {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    background-color: #2A1A49;
+    border: none;
+    border-radius: 10px;
+}
+
+.button--large {
+    width: 233px;
+    height: 34px;
+}
+
 /* game window */
 .game-window {
     width: 740px;
@@ -18,4 +33,17 @@ body {
 
     border: 20px solid #2A1A49;
     border-radius: 20px;
+}
+
+/* play menu */
+.play-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 144px;
+
+    padding: 50px;
+}
+
+.play-menu__header {
+    font-size: 55px;
 }
