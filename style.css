@@ -30,6 +30,13 @@ body {
     height: 34px;
 }
 
+.button--small {
+    width: 55px;
+    height: 21px;
+
+    font-size: 13px;
+}
+
 /* game window */
 .game-window {
     width: 740px;
@@ -45,10 +52,61 @@ body {
     flex-direction: column;
     gap: 144px;
 
+    width: 700px;
+    height: 450px;
     padding: 50px;
+
+    background-color: #d8caf5;
 }
 
 .play-menu__header {
     color: #4B2E83;
     font-size: 55px;
+}
+
+/* game screen */
+.game-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+
+    width: 700px;
+    height: 450px;
+    padding: 10px;
+
+    background-color: #d8caf5;
+}
+
+.game-screen__score {
+    font-size: 21px;
+    margin-left: auto;
+}
+
+.game-screen__paws {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    width: 590px;
+    height: 345px;
+}
+
+.game-screen__paw {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    color: white;
+    font-size: 21px;
+    background-color: black;
+    border-radius: 100%;
+}
+
+#game-screen__reset-btn {
+    margin-right: auto;
 }

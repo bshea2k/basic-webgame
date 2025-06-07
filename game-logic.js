@@ -3,8 +3,16 @@ window.addEventListener("DOMContentLoaded", domLoaded);
 const gameWindow = document.querySelector(".game-window");
 
 function domLoaded() {
-
+    addPlayMenu();
 }
+
+// game event functions
+function startGame() {
+    clearGameWindow();
+
+    addGameScreen();
+}
+
 
 // DOM manipulation functions
 function clearGameWindow() {
@@ -38,4 +46,35 @@ function addPlayMenu() {
 
     // attach
     gameWindow.appendChild(playMenu);
+}
+
+function addGameScreen() {
+    // create elements & assign classes
+    const gameScreen = document.createElement("div");
+    gameScreen.classList.add("game-screen");
+
+    const score = document.createElement("p");
+    score.classList.add("game-screen__score");
+
+    const paws = document.createElement("div");
+    paws.classList.add("game-screen__paws");
+
+    const resetButton = document.createElement("button");
+    resetButton.classList.add("button");
+    resetButton.classList.add("button--small");
+    resetButton.setAttribute("id", "game-screen__reset-btn");
+    resetButton.setAttribute("onclick", "startGame()");
+
+    // add content to elements
+    score.textContent = 0;
+
+    resetButton.textContent = "Reset";
+
+    // append elements
+    gameScreen.appendChild(score);
+    gameScreen.appendChild(paws);
+    gameScreen.appendChild(resetButton);
+
+    // attach
+    gameWindow.appendChild(gameScreen);
 }
