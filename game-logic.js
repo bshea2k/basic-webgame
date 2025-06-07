@@ -11,8 +11,25 @@ function startGame() {
     clearGameWindow();
 
     addGameScreen();
+
+    generatePaws();
 }
 
+function generatePaws() {
+    const pawsContainer = document.querySelector(".game-screen__paws");
+
+    for (let i = 0; i < 170; i++) {
+        const paw = document.createElement("div");
+        paw.classList.add("game-screen__paw");
+
+        let randomNum = Math.floor(Math.random() * 9) + 1;
+        paw.textContent = randomNum;
+
+        // event listener for selection rectangle equaling 10?
+
+        pawsContainer.appendChild(paw);
+    }
+}
 
 // DOM manipulation functions
 function clearGameWindow() {
