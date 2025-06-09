@@ -37,6 +37,15 @@ body {
     font-size: 13px;
 }
 
+/* selection box */
+.selection-box {
+    position: absolute;
+    border: 2px solid red;
+    background-color: #00000088;
+    pointer-events: none;
+    display: none;
+}
+
 /* game window */
 .game-window {
     width: 740px;
@@ -105,6 +114,15 @@ body {
     font-size: 21px;
     background-color: black;
     border-radius: 100%;
+    user-select: none;
+}
+
+.game-screen__paw--hidden {
+    display: none;
+}
+
+.game-screen__paw--selected {
+    border: 2px solid gold;
 }
 
 #game-screen__reset-btn {

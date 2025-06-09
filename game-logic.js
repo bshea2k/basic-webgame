@@ -2,6 +2,9 @@ window.addEventListener("DOMContentLoaded", domLoaded);
 
 const gameWindow = document.querySelector(".game-window");
 
+let selecting = false;
+let selectedPaws = [];
+
 function domLoaded() {
     addPlayMenu();
 }
@@ -26,6 +29,7 @@ function generatePaws() {
         paw.textContent = randomNum;
 
         // event listener for selection rectangle equaling 10?
+        
 
         pawsContainer.appendChild(paw);
     }
@@ -95,3 +99,41 @@ function addGameScreen() {
     // attach
     gameWindow.appendChild(gameScreen);
 }
+
+const selectionBox = document.querySelector('.selection-box');
+let startX, startY;
+
+document.addEventListener('mousedown', (e) => {
+  startX = e.clientX;
+  startY = e.clientY;
+
+  selectionBox.style.left = `${startX}px`;
+  selectionBox.style.top = `${startY}px`;
+  selectionBox.style.width = '0px';
+  selectionBox.style.height = '0px';
+  selectionBox.style.display = 'block';
+
+  const onMouseMove = (e) => {
+    const currentX = e.clientX;
+    const currentY = e.clientY;
+
+    const width = Math.abs(currentX - startX);
+    const height = Math.abs(currentY - startY);
+    const left = Math.min(currentX, startX);
+    const top = Math.min(currentY, startY);
+
+    selectionBox.style.left = `${left}px`;
+    selectionBox.style.top = `${top}px`;
+    selectionBox.style.width = `${width}px`;
+    selectionBox.style.height = `${height}px`;
+  };
+
+  const onMouseUp = () => {
+    selectionBox.style.display = 'none';
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
