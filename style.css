@@ -40,8 +40,8 @@ body {
 /* selection box */
 .selection-box {
     position: absolute;
-    border: 2px solid red;
-    background-color: #00000088;
+    border: 1px solid #4B2E83;
+    background-color: #e8D3A288;
     pointer-events: none;
     display: none;
 }
@@ -124,7 +124,7 @@ body {
 }
 
 .game-screen__paw--selected {
-    border: 2px solid gold;
+    border: 3px solid #e8d3a2;
 }
 
 #game-screen__reset-btn {

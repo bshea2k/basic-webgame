@@ -32,95 +32,92 @@ function generatePaws() {
         let randomNum = Math.floor(Math.random() * 9) + 1;
         paw.textContent = randomNum;
 
-        // event listener for selection rectangle equaling 10?
-        
-
         pawsContainer.appendChild(paw);
     }
 }
 
 function initializeScoringFunction() {
-    document.addEventListener('mousedown', (e) => {
-    startX = e.clientX;
-    startY = e.clientY;
+    document.addEventListener("mousedown", (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
 
-    selectionBox.style.left = `${startX}px`;
-    selectionBox.style.top = `${startY}px`;
-    selectionBox.style.width = '0px';
-    selectionBox.style.height = '0px';
-    selectionBox.style.display = 'block';
+        selectionBox.style.left = `${startX}px`;
+        selectionBox.style.top = `${startY}px`;
+        selectionBox.style.width = "0px";
+        selectionBox.style.height = "0px";
+        selectionBox.style.display = "block";
 
-    const onMouseMove = (e) => {
-        const currentX = e.clientX;
-        const currentY = e.clientY;
+        const onMouseMove = (e) => {
+            const currentX = e.clientX;
+            const currentY = e.clientY;
 
-        const width = Math.abs(currentX - startX);
-        const height = Math.abs(currentY - startY);
-        const left = Math.min(currentX, startX);
-        const top = Math.min(currentY, startY);
+            const width = Math.abs(currentX - startX);
+            const height = Math.abs(currentY - startY);
+            const left = Math.min(currentX, startX);
+            const top = Math.min(currentY, startY);
 
-        selectionBox.style.left = `${left}px`;
-        selectionBox.style.top = `${top}px`;
-        selectionBox.style.width = `${width}px`;
-        selectionBox.style.height = `${height}px`;
+            selectionBox.style.left = `${left}px`;
+            selectionBox.style.top = `${top}px`;
+            selectionBox.style.width = `${width}px`;
+            selectionBox.style.height = `${height}px`;
 
-        const selectionRect = selectionBox.getBoundingClientRect();
+            const selectionRect = selectionBox.getBoundingClientRect();
 
-        document.querySelectorAll(".game-screen__paw").forEach(paw => {
-            const pawRect = paw.getBoundingClientRect();
-            const index = selectedPaws.indexOf(paw);
+            document.querySelectorAll(".game-screen__paw").forEach(paw => {
+                const pawRect = paw.getBoundingClientRect();
+                const index = selectedPaws.indexOf(paw);
 
-            if (isColliding(selectionRect, pawRect)) {
-                paw.classList.add("game-screen__paw--selected");
+                if (isColliding(selectionRect, pawRect)) {
+                    paw.classList.add("game-screen__paw--selected");
 
-                if (index === -1) {
-                    selectedPaws.push(paw);
+                    if (index === -1) {
+                        selectedPaws.push(paw);
+                    }
+                } else {
+                    paw.classList.remove("game-screen__paw--selected");
+
+                    if (index !== -1) {
+                        selectedPaws.splice(index, 1);
+                    }
                 }
-            } else {
-                paw.classList.remove("game-screen__paw--selected");
-
-                if (index !== -1) {
-                    selectedPaws.splice(index, 1);
-                }
-            }
-        });
-    };
-
-    const onMouseUp = () => {
-        selectionBox.style.display = 'none';
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-
-        document.querySelectorAll(".game-screen__paw").forEach(paw => { 
-            paw.classList.remove("game-screen__paw--selected");
-        });
-
-        let selectedScore = 0;
-        let pawsSelected = 0;
-        selectedPaws.forEach(paw => {
-            if (paw.classList.contains("game-screen__paw--hidden")) {
-                return;
-            }
-
-            selectedScore += Number(paw.textContent);
-            pawsSelected += 1;
-        });
-
-        if (selectedScore === 10) {
-            selectedPaws.forEach(paw => {
-                paw.classList.add("game-screen__paw--hidden");
             });
-
-            let currentScore = Number(scoreCounter.textContent);
-            let newScore = pawsSelected + currentScore;
-            scoreCounter.textContent = newScore;
         };
 
-        selectedPaws = [];
-    };
+        const onMouseUp = () => {
+            selectionBox.style.display = "none";
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+            document.querySelectorAll(".game-screen__paw").forEach(paw => { 
+                paw.classList.remove("game-screen__paw--selected");
+            });
+
+            let selectedScore = 0;
+            let pawsSelected = 0;
+            selectedPaws.forEach(paw => {
+                if (paw.classList.contains("game-screen__paw--hidden")) {
+                    return;
+                }
+
+                selectedScore += Number(paw.textContent);
+                pawsSelected += 1;
+            });
+
+            if (selectedScore === 10) {
+                selectedPaws.forEach(paw => {
+                    paw.classList.add("game-screen__paw--hidden");
+                });
+
+                let currentScore = Number(scoreCounter.textContent);
+                let newScore = pawsSelected + currentScore;
+                scoreCounter.textContent = newScore;
+            };
+
+            selectedPaws = [];
+        };
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
     });
 
     function isColliding(rect1, rect2) {
