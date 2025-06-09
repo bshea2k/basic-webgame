@@ -4,6 +4,7 @@ const gameWindow = document.querySelector(".game-window");
 const selectionBox = document.querySelector(".selection-box");
 let scoreCounter;
 let startX, startY;
+let paws = [];
 let selectedPaws = [];
 
 function domLoaded() {
@@ -12,10 +13,30 @@ function domLoaded() {
 
 // game event functions
 function startGame() {
+    if (localStorage.getItem("score") === null) {
+        resetGame();
+        return;
+    }
+
+    clearGameWindow();
+
+    addGameScreen();
+
+    scoreCounter = document.querySelector(".game-screen__score");
+    scoreCounter.textContent = Number(localStorage.getItem("score"));
+
+    loadPaws();
+
+    initializeScoringFunction();
+}
+
+function resetGame() {
     clearGameWindow();
 
     addGameScreen();
     scoreCounter = document.querySelector(".game-screen__score");
+    localStorage.setItem("score", 0);
+    paws = [];
 
     generatePaws();
 
@@ -32,7 +53,30 @@ function generatePaws() {
         let randomNum = Math.floor(Math.random() * 9) + 1;
         paw.textContent = randomNum;
 
+        localStorage.setItem(`num${i}`, `${randomNum}`);
+        localStorage.setItem(`hidden${i}`, "false");
+
         pawsContainer.appendChild(paw);
+        paws.push(paw);
+    }
+}
+
+function loadPaws() {
+    const pawsContainer = document.querySelector(".game-screen__paws");
+
+    for (let i = 0; i < 170; i++) {
+        const paw = document.createElement("div");
+        paw.classList.add("game-screen__paw");
+
+        if (localStorage.getItem(`hidden${i}`) === "true") {
+            paw.classList.add("game-screen__paw--hidden");
+        }
+
+        let num = Number(localStorage.getItem(`num${i}`));
+        paw.textContent = num;
+
+        pawsContainer.appendChild(paw);
+        paws.push(paw);
     }
 }
 
@@ -106,11 +150,16 @@ function initializeScoringFunction() {
             if (selectedScore === 10) {
                 selectedPaws.forEach(paw => {
                     paw.classList.add("game-screen__paw--hidden");
+
+                    const index = paws.indexOf(paw);
+                    console.log(index);
+                    localStorage.setItem(`hidden${index}`, "true");
                 });
 
                 let currentScore = Number(scoreCounter.textContent);
                 let newScore = pawsSelected + currentScore;
                 scoreCounter.textContent = newScore;
+                localStorage.setItem("score", newScore);
             };
 
             selectedPaws = [];
@@ -179,7 +228,7 @@ function addGameScreen() {
     resetButton.classList.add("button");
     resetButton.classList.add("button--small");
     resetButton.setAttribute("id", "game-screen__reset-btn");
-    resetButton.setAttribute("onclick", "startGame()");
+    resetButton.setAttribute("onclick", "resetGame()");
 
     // add content to elements
     score.textContent = 0;
