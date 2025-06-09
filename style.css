@@ -7,7 +7,10 @@
 
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+
     margin-top: 21px;
 }
 
@@ -129,4 +132,28 @@ body {
 
 #game-screen__reset-btn {
     margin-right: auto;
+}
+
+/* tutorial window */
+.tutorial {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+    width: 740px;
+    height: 140px;
+    padding: 13px;
+
+    border: 20px solid #4B2E83;
+    border-radius: 20px;
+    background-color: #d8caf5
+}
+
+.tutorial__header {
+    color: #4B2E83;
+}
+
+.tutorial__text {
+    color: #4B2E83
 }
