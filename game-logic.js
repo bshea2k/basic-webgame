@@ -126,14 +126,39 @@ document.addEventListener('mousedown', (e) => {
     selectionBox.style.top = `${top}px`;
     selectionBox.style.width = `${width}px`;
     selectionBox.style.height = `${height}px`;
+
+    const selectionRect = selectionBox.getBoundingClientRect();
+
+    document.querySelectorAll(".game-screen__paw").forEach(paw => {
+        const pawRect = paw.getBoundingClientRect();
+
+        if (isColliding(selectionRect, pawRect)) {
+            paw.classList.add("game-screen__paw--selected");
+        } else {
+            paw.classList.remove("game-screen__paw--selected");
+        }
+    });
   };
 
   const onMouseUp = () => {
     selectionBox.style.display = 'none';
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
+
+    document.querySelectorAll(".game-screen__paw").forEach(paw => { 
+        paw.classList.remove("game-screen__paw--selected");
+    });
   };
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
+
+function isColliding(rect1, rect2) {
+    return !(
+        rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom
+    );
+}
